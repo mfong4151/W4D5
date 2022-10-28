@@ -227,7 +227,7 @@ def two_sum_2?(arr, target_sum)
     end
 
     false
-    
+
 end
 
 
@@ -235,3 +235,7 @@ arr = [0, 1, 5, 7]
 
 p two_sum_2?(arr, 6) # => should be true
 p two_sum_2?(arr, 10) # => should be false
+
+
+
+queue = []
