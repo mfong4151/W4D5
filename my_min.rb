@@ -12,7 +12,7 @@ def my_min(list)
 
     sorted = list.sort
     sorted[0]
-    
+
 end
 
 
@@ -51,7 +51,7 @@ def largest_contiguous_subsum(list)
     res = -1.0/0                #-infinity
     output.each do |i|
         res = [res, i.sum].max
-        
+
     end
 
     res
@@ -64,24 +64,32 @@ end
 
 #Let's make a better version. Write a new function using O(n) time with O(1) memory. Keep a running tally of the largest sum. To accomplish this efficient space complexity, consider using two variables. One variable should track the largest sum so far and another to track the current sum. We'll leave the rest to you.
 
+    # output = []
+    # i = 0
+    # while i < list.length
+    #     j = i + 1
+
+    # end
+
 def largest_contiguous_subsum_2(list)
-
-    output = []
-    i = 0
-    while i < list.length
-        j = i + 1
-
+    res = -1.0/0
+    acc = 0
+    list.each do |i|
+        acc += i
+        res = [res, acc].max
+        if acc < 0
+            acc = 0
+        end
     end
-
-
+    res
 end
 
 
 
 
 
-list = [5, 3, -7]
-puts largest_contiguous_subsum_2(list) # => 8
+# list = [5, 3, -7]
+# puts largest_contiguous_subsum_2(list) # => 8
 
 # possible sub-sums
 #[5]           # => 5
@@ -91,15 +99,66 @@ puts largest_contiguous_subsum_2(list) # => 8
 #[3, -7]       # => -4
 #[-7]          # => -7
 
-max = 5
-acc = -1
+# max = 5
+# acc = -1
 
 
-list = [2, 3, 0, -6, 7, -6, 7]
-#puts largest_contiguous_subsum_2(list) # => 8 (from [7, -6, 7])
+# list = [2, 3, 0, -6, 7, -6, 7]
+# puts largest_contiguous_subsum_2(list) # => 8 (from [7, -6, 7])
 
 
 
 
-list = [-5, -1, -3]
-#puts largest_contiguous_subsum_2(list) # => -1 (from [-1])
+# list = [-5, -1, -3]
+# puts largest_contiguous_subsum_2(list) # => -1 (from [-1])
+
+
+
+def anagram?(s1,s2)
+    first = s1.split("")
+    first = first.permutation.to_a
+    first.map!{|arr|arr.join("")}
+    first.include?(s2)
+end
+
+
+# p anagram?("gizmo", "sally")    #=> false
+# p anagram?("elvis", "lives")    #=> true
+
+def anagram_2?(s1,s2)
+    s1.each_char do |char|
+        (0...s2.length).each do |i|
+            if char == s2[i]
+                s2[i] = ""
+                break
+            end
+        end
+    end
+    return s2 == ""
+end
+
+# p anagram_2?("gizmo", "sally")    #=> false
+# p anagram_2?("elvis", "lives")    #=> true
+
+#(nlogn)
+def anagram_3?(s1,s2)
+    s1.split("").sort == s2.split("").sort
+end
+
+# p anagram_3?("gizmo", "sally")    #=> false
+# p anagram_3?("elvis", "lives")    #=> true
+
+
+def anagram_4?(s1,s2)
+    h1 = Hash.new{0}
+    (0...s1.length).each do |i|
+        h1[s1[i]] += 1
+        h1[s2[i]] -= 1
+
+        # h2[s2[i]] += 1
+    end
+    h1.all?{|k,v| v == 0}
+end
+
+p anagram_4?("gizmo", "sally")    #=> false
+p anagram_4?("elvis", "lives")    #=> true
