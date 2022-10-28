@@ -160,5 +160,78 @@ def anagram_4?(s1,s2)
     h1.all?{|k,v| v == 0}
 end
 
-p anagram_4?("gizmo", "sally")    #=> false
-p anagram_4?("elvis", "lives")    #=> true
+#p anagram_4?("gizmo", "sally")    #=> false
+#p anagram_4?("elvis", "lives")    #=> true
+
+
+
+def two_sum?(arr, target_sum)
+
+    arr.each.with_index do |num, i|
+        arr.each.with_index do |num_2, j|
+
+            if  j > i && num + num_2 == target_sum
+                return true
+            end
+        end
+    end
+
+    false
+
+end
+
+   
+arr = [0, 1, 5, 7]
+two_sum?(arr, 6) # => should be true
+two_sum?(arr, 10) # => should be false
+
+
+
+def two_sum_1?(arr, target_sum)
+    arr = arr.sort
+
+    first = 0
+    last= arr.length - 1
+
+    while first < last
+
+        if arr[first] + arr[last] == target_sum
+            return true
+        end
+
+        if arr[first] + arr[last] > target_sum
+            last -= 1
+        else
+            first += 1
+        end
+
+    end
+    false    
+
+end
+
+arr = [7, 0, 5, 1]
+two_sum_1?(arr, 6) # => should be true
+two_sum_1?(arr, 10) # => should be false
+
+
+
+def two_sum_2?(arr, target_sum)
+
+    output = {}
+
+    arr.each do |ele|
+        return output[ele] if output.has_key?(ele)
+        output[target_sum - ele] = true
+
+    end
+
+    false
+    
+end
+
+
+arr = [0, 1, 5, 7]
+
+p two_sum_2?(arr, 6) # => should be true
+p two_sum_2?(arr, 10) # => should be false
